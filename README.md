@@ -21,7 +21,7 @@ public boolean onTouchEvent(MotionEvent event){
       //터치 이벤트 처리 코드 작성
   }
 }
-
+`````````````````
 onDraw()의 매개 변수는 Canvas로 이 Canvas 클래스는 drawRect()나 drawText()와 같은 모든 그리기 메소드를 가지고 있다.
 애플리케이션을 다시 그려야 한다면 invalidate()를 호출한다. invalidate()가 호출되면 안드로이드는 적절한 시간에 onDraw()를 호출하게 된다.
 
