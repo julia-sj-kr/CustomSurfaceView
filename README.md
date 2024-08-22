@@ -5,7 +5,7 @@ https://github.com/fury999io/public-ip-cams?tab=readme-ov-file
 https://answers.opencv.org/question/15812/ip-camera-frames-manipulation/
 
 ----------------------------------------------------------------------------------------------
-###### 커스텀 뷰
+##### 커스텀 뷰
 
 커스텀 뷰는 기본적으로 View 클래스를 확장하여 사용자 정의 레이아웃 및 그래픽을 구현할 수 있는 방법이다.
 커스텀 뷰에서 그림을 그리려면 View 클래스의 onDraw() 메소드를 오버라이드하면 된다.
