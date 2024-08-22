@@ -62,7 +62,7 @@ Canvas의 메소드는 항상 Paint 객체를 마지막 매개 변수로 하여 
 이러한 목적으로 우리의 서피스 뷰 클래스는 SurfaceHolder.Callback을 구현한다. 이 인터페이스는 서피스 뷰에 대한 정보를 통지해준다. 예를 들어서 서피스 뷰가 생성되거나 변경되거나 파괴될 때 우리에게 통지해준다.
 
 a. 서피스 뷰 파일
-``
+````````````````
 public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback{
 
     private MyThread thread;
@@ -91,10 +91,10 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder,int format, int width, int height) {
 
     }
-``
+````````````````
 
 b. 메인 파일
-``
+````````````````
 public class MainActivity extends AppCompatActivity {
     MySurfaceView view;
 
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         view=new MySurfaceView(this);
         setContentView(view);
     }
-``
+````````````````
 
 
 
