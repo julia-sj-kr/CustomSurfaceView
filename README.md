@@ -51,6 +51,61 @@ Canvas의 메소드는 항상 Paint 객체를 마지막 매개 변수로 하여 
 안드로이드에서는 UI 스레드에서 소켓(네트워크)을 읽거나 쓰지 못하게 만들어져있다.
 원격으로 영상을 받기 위해서는 별도의 작업 스레드가 필요하며 작업 스레드에서 화면을 그릴때는 서피스 뷰를 사용하면 된다.
 
+## 서피스 뷰 사용 방법
+
+먼저 SurfaceView를 상속받아서 새로운 클래스를 정의한다.
+
+그리고 액티비티의 화면으로 서피스 뷰를 설정한 후에 새로운 스레드에서 이 서피스 뷰에 그림을 그리면 된다.
+
+하지만 새로운 스레드가 실제로 서피스를 생성하기 전에 그림을 그리면 안된다. 따라서 서피스가 생성되고 소멸되는 시점을 그림을 담당하는 스레드에 알려주어야 한다.
+
+이러한 목적으로 우리의 서피스 뷰 클래스는 SurfaceHolder.Callback을 구현한다. 이 인터페이스는 서피스 뷰에 대한 정보를 통지해준다. 예를 들어서 서피스 뷰가 생성되거나 변경되거나 파괴될 때 우리에게 통지해준다.
+
+a. 서피스 뷰 파일
+``
+public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback{
+
+    private MyThread thread;
+
+    @Override
+    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+        thread.setRunning(true);
+        thread.start();
+    }
+
+    @Override
+    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+        boolean retry=true;
+
+        thread.setRunning(false);
+        while (retry){
+            try{
+                thread.join();
+                retry=false;
+            } catch (InterruptedException e){
+            }
+        }
+    }
+
+    @Override
+    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder,int format, int width, int height) {
+
+    }
+``
+
+b. 메인 파일
+``
+public class MainActivity extends AppCompatActivity {
+    MySurfaceView view;
+
+    //MainActivity에서 MySurfaceView를 인스턴스화하고, setContentView를 통해 UI로 설정하여 사용자 정의 View로 사용하고 있다
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        view=new MySurfaceView(this);
+        setContentView(view);
+    }
+``
+
 
 
 
